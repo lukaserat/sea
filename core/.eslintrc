@@ -1,0 +1,23 @@
+{
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "globals": {
+    "describe": true,
+    "beforeEach": true,
+    "before": true,
+    "afterEach": true,
+    "after": true,
+    "it": true
+  },
+  "rules": {
+    "no-console": 0,
+    "no-unused-vars": 1,
+    "semi": 0,
+    "prefer-object-spread": 0
+  }
+}
