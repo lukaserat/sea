@@ -89,7 +89,7 @@ export default {
         properties: {
           in: {
             type: 'string',
-            'enum': ['query', 'path']
+            'enum': ['query', 'path', 'header']
           },
           name: {
             type: 'string',

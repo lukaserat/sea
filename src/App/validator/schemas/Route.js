@@ -1,7 +1,9 @@
 import PathSchema from '../../../Swagger/validator/schemas/Path'
+import { express } from '../../express/middleware.mapping';
 const allowedMethod = [
   'get', 'post', 'put', 'delete'
 ]
+const availableMiddlewares = Object.keys(express);
 
 export default {
   $id: '$Route',
@@ -18,7 +20,12 @@ export default {
       method: `Method must be one of the following allowed values [${allowedMethod.join(',')}]`,
       path: 'Path must be in the format URL path, get ${/path}.',
       handler: 'Handler of ${/path} must be a function.',
-      middleware: 'Expecting middleware of ${/path} to be array of functions.',
+      middleware: [
+        '${/express/middleware}',
+        `Expecting before middleware to be one of the allowed values: ${availableMiddlewares.join(', ')}.`,
+        'It can be an express middleware function.',
+        'It can be in a format { name: <allowed middleware>, params: [] }'
+      ].join(' '),
       overwrite: 'Expecting overwrite of ${/path} to be a boolean.',
       responses: 'Expecting responses of ${/path} to be in object format: { <status_code>:<model_name> }.'
     }
@@ -71,7 +78,28 @@ export default {
     middleware: {
       type: 'array',
       items: {
-        function: true
+        oneOf: [
+          {
+            type: 'string',
+            'enum': availableMiddlewares
+          },
+          {
+            type: 'object',
+            required: ['name'],
+            properties: {
+              name: {
+                type: 'string',
+                'enum': availableMiddlewares
+              },
+              params: {
+                type: ['string', 'array', 'object'],
+              }
+            }
+          },
+          {
+            function: true
+          }
+        ]
       }
     },
     prefix: {

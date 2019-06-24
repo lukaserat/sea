@@ -54,10 +54,19 @@ function parseMiddleware(middleware) {
   this.use(m)
 }
 
-function requestParamHandler({ required, name, schema }) {
+function requestParamHandler(parameter) {
+  const { required, name, schema } = parameter
+  const sourceIn = parameter.in
+  const mapping = {
+    header: 'headers',
+    query: 'query',
+    path: 'params'
+  }
   return (req, res, next) => {
     const modI = req.app.modInstance
-    const data = { [`${name}`]: req.params[name] }
+    const value = req[mapping[sourceIn]][sourceIn === 'header' ? name.toLowerCase() : name]
+    const data = { [`${name}`]: value }
+
     try {
       if (required) {
         modI.validator.validate({
@@ -69,7 +78,7 @@ function requestParamHandler({ required, name, schema }) {
         }, data)
       }
 
-      if (!_.isEmpty(req.params[name])) {
+      if (!_.isEmpty(value)) {
         modI.validator.validate({
           type: 'object',
           properties: {
@@ -137,8 +146,7 @@ export default function server(modInstance) {
     middleware = [],
     handler,
     requestBody,
-    parameters,
-    prefix
+    parameters
   }) => {
     if (_.isPlainObject(requestBody)) {
       // implement validator
