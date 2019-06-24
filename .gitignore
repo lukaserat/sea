@@ -134,4 +134,3 @@ dist
 mochawesome-reports
 logs/
 tmp/
-**/*/public/docs/

@@ -4,12 +4,14 @@
   "description": "Swagger-UI + Express + AJV",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "rimraf ./dist && babel src --ignore ./src/Test --out-dir dist --copy-files",
+    "build": "npm run clean:build && babel src --ignore ./src/Test --out-dir dist --copy-files",
+    "clean:build": "rimraf ./dist",
     "build:watch": "watch 'npm run build' src",
     "lint": "eslint --ignore-path .eslintignore .",
     "coverage": "nyc --exclude=**/*.spec.js --skip-empty --skip-full --reporter=html --reporter=text npm run test",
     "test": "find . -not \\( -path ./dist -prune \\) -name '*.ssc.spec.js' | xargs mocha --require @babel/register --require @babel/polyfill",
-    "seagen": "node ./src/App/generator.js"
+    "clean:tmp": "rimraf ./tmp",
+    "seagen": "npm run clean:tmp && node ./src/App/generator.js"
   },
   "repository": {
     "type": "git",
