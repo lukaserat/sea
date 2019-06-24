@@ -134,3 +134,4 @@ dist
 mochawesome-reports
 logs/
 tmp/
+src/Test/mod-test/public

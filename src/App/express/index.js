@@ -6,6 +6,7 @@ import { runThrough } from '../../utils'
 import * as constants from '../../Constants/api'
 import { express as mapping } from './middleware.mapping'
 
+// eslint-disable-next-line no-unused-vars
 export const notFound = (req, res, next) => {
   res.status(constants.MESSAGE_NOT_FOUND_CODE).json({
     status: constants.MESSAGE_NOT_FOUND_CODE,
@@ -13,6 +14,7 @@ export const notFound = (req, res, next) => {
   })
 }
 
+// eslint-disable-next-line no-unused-vars
 export const generalError = (err, req, res, next) => {
   const logger = req.app.modInstance.logger
   const error = {

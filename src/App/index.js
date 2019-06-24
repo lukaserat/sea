@@ -56,7 +56,7 @@ class App {
   _validateAppDefinition() {
     this.logger.debug('Validating instance\'s definition', this.definition)
     const x = this.validator.validate('App', this.definition)
-    this.logger.debug(`Validating instance\'s definition: ${x ? 'passed' : 'failed'}`)
+    this.logger.debug(`Validating instance's definition: ${x ? 'passed' : 'failed'}`)
   }
 
   /**

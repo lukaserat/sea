@@ -25,8 +25,7 @@ export default {
   },
   uniquePath: {
     errors: 'full',
-    compile(sch, parentSchema, schema) {
-
+    compile() {
       return function(value, path, data) {
         /** @type {SSC_Swagger.Swagger} */
         const app = this.app

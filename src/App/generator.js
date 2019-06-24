@@ -37,7 +37,7 @@ const schema = {
       required: true,
     },
     products: {
-      pattern: /[^,\s]{3,}[^\,]*/,
+      pattern: /[^,\s]{3,}[^,]*/,
       description: 'Product separated by comma.',
       message: 'Expecting comma separated product',
       required: true,

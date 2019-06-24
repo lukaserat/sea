@@ -20,6 +20,7 @@ export default {
   properties: {
     explorerPath: {
       type: 'string',
+      // eslint-disable-next-line no-useless-escape
       pattern: '^\/.+'
     },
     publicDir: {

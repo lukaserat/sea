@@ -7,9 +7,9 @@
     "build": "npm run clean:build && babel src --ignore ./src/Test --out-dir dist --copy-files",
     "clean:build": "rimraf ./dist",
     "build:watch": "watch 'npm run build' src",
-    "lint": "eslint --ignore-path .eslintignore .",
-    "coverage": "nyc --exclude=**/*.spec.js --skip-empty --skip-full --reporter=html --reporter=text npm run test",
-    "test": "find . -not \\( -path ./dist -prune \\) -name '*.ssc.spec.js' | xargs mocha --require @babel/register --require @babel/polyfill",
+    "lint": "eslint --ignore-path .eslintignore src",
+    "cover": "nyc --exclude=**/*.spec.js --skip-empty --skip-full --reporter=html --reporter=text npm run test",
+    "test": "find . -not \\( -path ./tmp -prune \\) -not \\( -path ./dist -prune \\) -name '*.ssc.spec.js' | xargs mocha --require @babel/register --require @babel/polyfill",
     "clean:tmp": "rimraf ./tmp",
     "seagen": "npm run clean:tmp && node ./src/App/generator.js"
   },
@@ -24,6 +24,11 @@
     "ajv",
     "swagger-ui"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test && npm run cover"
+    }
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -33,7 +38,8 @@
     "@babel/register": "^7.4.4",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
+    "husky": "^2.4.1",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
