@@ -24,7 +24,7 @@ describe('Swagger', () => {
     fs.removeSync(publicDir)
   })
 
-  it('Should validate instance structure', async function test() {
+  it.only('Should validate instance structure', async function test() {
     let definition = {
       explorerPath: '/swagger-ui',
       publicDir,
@@ -66,6 +66,12 @@ describe('Swagger', () => {
     assert.doesNotThrow(() => new Swagger({ ...definition, baseUrl: 'http://localhost:3000' }), ValidationException)
     assert.doesNotThrow(() => new Swagger({ ...definition, baseUrl: 'http://127.0.0.1:8080' }), ValidationException)
     assert.doesNotThrow(() => new Swagger({ ...definition, baseUrl: 'https://example.com' }), ValidationException)
+
+    // security
+    assert.doesNotThrow(() => new Swagger({
+      ...definition,
+      security: { bearerAuth: {} }
+    }), ValidationException)
 
     definition = {
       ...definition,

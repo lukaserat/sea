@@ -56,5 +56,57 @@ export default {
     version: {
       type: 'string'
     },
+    security: {
+      type: 'object',
+      patternProperties: {
+        [`^[a-zA-Z0-9\\.\\-_]+$`]: {
+          oneOf: [
+            {
+              type: 'object',
+              required: ['type', 'name', 'in'],
+              properties: {
+                type: {
+                  type: 'string',
+                  enum: ['apiKey']
+                },
+                name: {
+                  type: 'string'
+                },
+                in: {
+                  type: 'string',
+                  enum: ['header', 'query', 'cookie']
+                },
+                description: {
+                  type: 'string'
+                }
+              },
+              patternProperties: {
+                [`^x-`]: {}
+              },
+              additionalProperties: false
+            },
+            {
+              type: 'object',
+              required: ['scheme', 'type'],
+              properties: {
+                scheme: {
+                  type: 'string'
+                },
+                bearerFormat: {
+                  type: 'string'
+                },
+                description: {
+                  type: 'string'
+                },
+                type: {
+                  type: 'string',
+                  enum: ['http']
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

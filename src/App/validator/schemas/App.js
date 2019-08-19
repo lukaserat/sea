@@ -1,4 +1,5 @@
 import { express } from '../../express/middleware.mapping'
+import SwaggerSchema from '../../../Swagger/validator/schemas/Swagger'
 
 const availableMiddlewares = Object.keys(express)
 
@@ -169,6 +170,7 @@ export default {
           function: true
         }
       }
-    }
+    },
+    security: SwaggerSchema.properties.security
   }
 }

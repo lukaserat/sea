@@ -23,7 +23,7 @@ const definition = {
     title: 'Test Module',
     description: `SEA Sample App. ${products().length > 0 ? `Supporting product(s): ${products().join(', ')}` : ''}`,
     version: '1.0.0'
-  },
+  }
 }
 
 export default definition
